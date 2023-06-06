@@ -37,27 +37,27 @@ async def translator(callback: types.CallbackQuery):
     if callback.data == "ru/en":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!", show_alert=True)
     elif callback.data == "ru/uz":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!", show_alert=True)
     elif callback.data == "ru/zh-CN":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!", show_alert=True)
     elif callback.data == "en/uz":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("You have successfully changed the language, now enter your text!", show_alert=True)
     elif callback.data == "uz/en":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("Siz tilni muvaffaqiyatli o'zgartirdingiz, endi matningizni kiriting!", show_alert=True)
     elif callback.data == "en/ru":
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
-        await callback.answer("Вы успешно сменили язык, теперь введите свой текст!")
+        await callback.answer("You have successfully changed the language, now enter your text!", show_alert=True)
 
 
 @dp.message_handler(content_types=['text'])
