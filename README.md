@@ -14,7 +14,7 @@
 4. Запустить файл: `python main.py`
 5. 
 Связаться со мной
-> [Email](xusrav200329@gmail.com)
+> Email `xusrav200329@gmail.com`
 
 > [Telegram](https://t.me/@xmn2003)
  
