@@ -1,9 +1,8 @@
 from aiogram import Bot, Dispatcher, executor, types
 from KEY import API
 from deep_translator import GoogleTranslator
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.dispatcher.filters import Text
-
+from keyboards import keyboard, keyboard1
 bot = Bot(API)
 dp = Dispatcher(bot)
 
@@ -15,30 +14,19 @@ HELP = """
 <i>Для начало нужно запустить бота</i> - /start
 <i>Выбрать язык</i> - /setlang
 <i>Ввести текст и подождать...</i>
+По умолчанию бот переводит текст с русского на английский
 
 Если возникли трудности или нашли баг(ошибку), то вы можете связяться с админом бота @xmn2003.
 """
 
-keyboard = InlineKeyboardMarkup(row_width=3)
-kb1 = InlineKeyboardButton("Русский/Английский", callback_data="ru/en")
-kb2 = InlineKeyboardButton("Русский/Узбекский", callback_data="ru/uz")
-kb3 = InlineKeyboardButton("Русский/Китайский", callback_data="ru/zh-CN")
-kb4 = InlineKeyboardButton("Английский/Узбекский", callback_data="en/uz")
-kb5 = InlineKeyboardButton("Узбекский/Английский", callback_data="uz/en")
-kb6 = InlineKeyboardButton("Английский/Русский", callback_data="en/ru")
-
-keyboard.add(kb1, kb2).add(kb3).add(kb4, kb5).add(kb6)
+text = """<b>Бот Переводчик</b>\n
+Поддерживает 4 языка для перевода\n
+Создан при помощи Python(Aiogram),а также используется библиотека deep-translator 1.11.1\n
+Связаться со админом - <b>@xmn2003</b>\n"""
 
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    keyboard1 = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    r1 = KeyboardButton(text="Выбрать-язык")
-    r2 = KeyboardButton(text="Перевести")
-    r3 = KeyboardButton(text="Помощь")
-    r4 = KeyboardButton(text="О боте")
-    keyboard1.add(r1, r2)
-    keyboard1.add(r3, r4)
     await message.answer(f"Привет, {message.from_user.username}. Добро пожаловать!\n"
                          f"Напишите /setlang чтобы выбрать язык для перевода.", reply_markup=keyboard1)
 
@@ -63,10 +51,7 @@ async def translate_texts(message: types.Message):
 
 @dp.message_handler(Text(equals=['О боте']))
 async def choice_lang(message: types.Message):
-    await message.answer(text="<b>Бот Переводчик</b>\n"
-                              "Поддерживает 4 языка для перевода\n"
-                              "Создан при помощи Python(Aiogram),а также используется библиотека deep-translator 1.11.1\n"
-                              "Связаться со админом - <b>@xmn2003</b>\n", parse_mode="HTML")
+    await message.answer(text=text, parse_mode="HTML")
 
 
 @dp.message_handler(commands=['setlang'])
@@ -103,7 +88,6 @@ async def translator(callback: types.CallbackQuery):
         lang_to = callback.data[:2]
         lang_from = callback.data[3:]
         await callback.answer("You have successfully changed the language, now enter your text!", show_alert=True)
-
 
 @dp.message_handler(content_types=['text'])
 async def only_text(message: types.Message):
