@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 from KEY import API
 from deep_translator import GoogleTranslator
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 
 bot = Bot(API)
 dp = Dispatcher(bot)
@@ -12,9 +12,17 @@ lang_to = "en"
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
+    keyboard1 = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    r1 = KeyboardButton(text="Выбрать-язык")
+    r2 = KeyboardButton(text="Перевести")
+    r3 = KeyboardButton(text="Помощь")
+    r4 = KeyboardButton(text="О боте")
+    keyboard1.add(r1, r2)
+    keyboard1.add(r3, r4)
     await message.answer(f"Привет, {message.from_user.username}. Добро пожаловать!\n"
-                         f"Напишите /setlang чтобы выбрать язык для перевода.")
+                         f"Напишите /setlang чтобы выбрать язык для перевода.", reply_markup=keyboard1)
 
+@dp.message_handler()
 
 @dp.message_handler(commands=['setlang'])
 async def set_lang(message: types.Message):
